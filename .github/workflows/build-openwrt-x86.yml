@@ -179,7 +179,7 @@ jobs:
         files: ${{ env.FIRMWARE }}/*
 
     - name: Delete workflow runs
-      uses: GitRML/delete-workflow-runs@v1.2.2
+      uses: Mattraks/delete-workflow-runs@v2
       with:
         retain_days: 1
         keep_minimum_runs: 3
