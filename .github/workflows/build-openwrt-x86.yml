@@ -42,7 +42,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
 
     - name: Initialization environment
@@ -118,7 +118,7 @@ jobs:
       run: df -hT
 
     - name: Upload bin directory
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
@@ -134,7 +134,7 @@ jobs:
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: Upload firmware directory
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
@@ -169,7 +169,7 @@ jobs:
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: Upload firmware to release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -185,7 +185,7 @@ jobs:
         keep_minimum_runs: 3
 
     - name: Remove old Releases
-      uses: dev-drprasad/delete-older-releases@v0.2.1
+      uses: dev-drprasad/delete-older-releases@v0.3.4
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         keep_latest: 3
